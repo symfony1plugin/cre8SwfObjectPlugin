@@ -2,11 +2,18 @@
 use_helper('Javascript'); 
 use_javascript('/cre8SwfObjectPlugin/js/swfobject.js');
 
+$flashVars = isset($flashVars) ? $flashVars : array();
+$flashVarsArray = array();
+foreach($flashVars as $key => $val) {
+  $flashVarsArray[] = $key . ": '" . $val . "'";
+}
+$flashVarsTxt = implode(', ', $flashVarsArray);
+
 echo javascript_tag('
 
 document.observe("dom:loaded", function () {
 
-	var flashvars = {};
+	var flashvars = { ' . $flashVarsTxt . ' };
 	var params = {
 			menu: "false",
 			wmode: "transparent"
